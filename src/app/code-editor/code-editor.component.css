@@ -1,0 +1,123 @@
+/* Fond général en nuances de gris */
+:host {
+    display: block;
+    height: 100vh;
+    background: linear-gradient(135deg, #e0e0e0, #c0c0c0);
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+  
+  /* Wrapper de l'éditeur */
+  .code-editor-wrapper {
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* En-tête de l'éditeur */
+  .code-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #44475a;
+    padding: 0.5rem 1rem;
+    color: #f8f8f2;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .button.red {
+    background-color: #ff5f56;
+  }
+  
+  .button.yellow {
+    background-color: #ffbd2e;
+  }
+  
+  .button.green {
+    background-color: #27c93f;
+  }
+  
+  /* Conteneur de Monaco Editor */
+  .code-editor-container {
+    height: 500px; /* Hauteur de l'éditeur */
+    background-color: #1e1e1e;
+  }
+  
+  .editor-container {
+    height: 100%; /* Remplit le conteneur parent */
+    width: 100%;
+  }
+
+  /* Wrapper de l'éditeur */
+.code-editor-wrapper {
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Bouton d'envoi */
+  .actions {
+    text-align: center;
+  }
+  
+  .actions button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .actions button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Conteneur de la sortie */
+  .output-container {
+    background-color: #1e1e1e;
+    color: #f8f8f2;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0 10px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  .output-container h3 {
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #444;
+  }
+  
+  .output {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  

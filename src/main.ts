@@ -1,6 +1,12 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes';
+import { CodeEditorComponent } from './app/code-editor/code-editor.component';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+bootstrapApplication(CodeEditorComponent, {
+  providers: [
+    provideRouter(routes),   // Pour les routes
+    provideHttpClient(),    // Ajout du HttpClient
+  ],
+}).catch((err) => console.error(err));

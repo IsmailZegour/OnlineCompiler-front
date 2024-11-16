@@ -1,0 +1,30 @@
+<div *ngIf="isBrowser">
+    <div class="code-editor-wrapper">
+      <!-- En-tête personnalisée de l'éditeur -->
+      <div class="code-editor-header">
+        <div class="buttons">
+          <span class="button red"></span>
+          <span class="button yellow"></span>
+          <span class="button green"></span>
+        </div>
+        <div class="title">JCompiler</div>
+      </div>
+  
+      <!-- Conteneur de Monaco Editor -->
+      <div class="code-editor-container">
+        <div #editorContainer class="editor-container"></div>
+      </div>
+  
+      <!-- Bouton d'envoi -->
+      <div class="actions">
+        <button (click)="sendCode()">Run Code</button>
+      </div>
+  
+      <!-- Résultat de l'exécution -->
+      <div class="output-container">
+        <h3>Output</h3>
+        <pre class="output">{{ output || 'Click on RUN button to see the output' }}</pre>
+      </div>
+    </div>
+  </div>
+  

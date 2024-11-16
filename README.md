@@ -1,81 +1,84 @@
 Java Online Compiler - Frontend
 Description
-Java Online Compiler is a modern web application that provides a seamless interface for writing, compiling, and executing Java code directly in your browser. Built with Angular, the frontend features a sleek and intuitive design powered by Monaco Editor for a superior coding experience.
+Java Online Compiler est une application web moderne qui offre une interface fluide pour écrire, compiler et exécuter du code Java directement dans votre navigateur. Construit avec Angular, le frontend propose un design élégant et intuitif, propulsé par Monaco Editor pour une expérience de codage supérieure.
 
-This project communicates with a backend API to handle code compilation and execution, making it a perfect tool for developers, students, and anyone learning Java.
+Ce projet communique avec une API backend pour gérer la compilation et l'exécution du code, ce qui en fait un outil parfait pour les développeurs, les étudiants et toute personne apprenant Java.
 
-Features
-Integrated Code Editor: Monaco Editor for syntax highlighting and error detection.
-Real-Time Code Execution: Compile and execute Java code instantly.
-Result Display: View execution output in a dedicated result pane.
-Responsive Design: Works seamlessly across devices and screen sizes.
-Prerequisites
-Node.js (v16 or later)
-Angular CLI (v15 or later)
-Installation and Setup
-Clone the repository:
+Fonctionnalités
+🖋 Éditeur de code intégré : Propulsé par Monaco Editor pour la coloration syntaxique et la détection d'erreurs.
+⚡ Exécution du code en temps réel : Compilez et exécutez du code Java instantanément.
+📜 Affichage des résultats : Visualisez la sortie d'exécution dans un panneau dédié.
+📱 Design réactif : Fonctionne parfaitement sur tous les appareils et tailles d'écran.
+Prérequis
+Pour exécuter ce projet localement, assurez-vous d'avoir les éléments suivants installés :
 
+Node.js (v16 ou supérieur)
+Angular CLI (v15 ou supérieur)
+Installation et Configuration
+Clonez le dépôt :
 
-
-git clone https://github.com/your-username/java-online-compiler-frontend.git
+bash
+Copier le code
+git clone https://github.com/votre-utilisateur/java-online-compiler-frontend.git
 cd java-online-compiler-frontend
-Install dependencies:
+Installez les dépendances :
 
-
-
+bash
+Copier le code
 npm install
-Start the development server:
+Démarrez le serveur de développement :
 
-
-
+bash
+Copier le code
 ng serve
-Open your browser and navigate to:
+Accédez à l'application : Ouvrez votre navigateur et naviguez vers :
 
 arduino
-
+Copier le code
 http://localhost:4200
-How to Use
-Write your Java code in the integrated editor.
-Click the Run Code button to send your code to the backend for compilation and execution.
-View the output in the result pane below the editor.
-API Integration
-The frontend interacts with the backend API hosted at http://localhost:8080. Below is an example of the API request and response:
+Comment Utiliser
+Écrivez votre code Java dans l'éditeur intégré.
+Cliquez sur le bouton Run Code pour envoyer votre code au backend pour compilation et exécution.
+Visualisez le résultat dans le panneau d'affichage situé sous l'éditeur.
+Intégration de l'API
+Le frontend communique avec l'API backend, hébergée à http://localhost:8080.
 
+Exemple de Requête et Réponse de l'API
 POST /compile
-Request Body:
+Corps de la requête :
 json
-
+Copier le code
 {
   "code": "public class Main { public static void main(String[] args) { System.out.println(\"Hello, World!\"); }}"
 }
-Response:
+Réponse :
 json
-
+Copier le code
 {
   "output": "Hello, World!"
 }
-Project Structure
-
-
+Structure du Projet
+bash
+Copier le code
 src/
 ├── app/
-│   ├── code-editor/       # Component for code writing and execution
-│   ├── shared/            # Shared utilities and services
-│   └── assets/            # Static assets
-├── environments/          # Environment-specific configurations
-Technologies Used
-Angular: Framework for building the frontend.
-Monaco Editor: Rich code editor with syntax highlighting.
-RxJS: Reactive programming library for managing asynchronous data streams.
-Known Issues
-Ensure the backend server is running and properly configured for CORS to avoid connection issues.
+│   ├── code-editor/       # Composant pour l'écriture et l'exécution du code
+│   ├── shared/            # Utilitaires et services partagés
+│   └── assets/            # Assets statiques
+├── environments/          # Configurations spécifiques à l'environnement
+Technologies Utilisées
+Angular : Framework pour construire le frontend.
+Monaco Editor : Éditeur de code riche avec coloration syntaxique.
+RxJS : Bibliothèque de programmation réactive pour gérer les flux de données asynchrones.
+Problèmes Connus
+Assurez-vous que le serveur backend est en cours d'exécution et correctement configuré pour CORS afin d'éviter les problèmes de connexion.
 Contributions
-Contributions are welcome! To contribute:
+Les contributions sont les bienvenues ! Si vous souhaitez contribuer :
 
-Fork the repository.
-Create a feature branch.
-Submit a pull request with detailed changes.
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+Forkez le dépôt.
+Créez une branche pour votre fonctionnalité.
+Soumettez une pull request avec des modifications détaillées.
+Licence
+Ce projet est sous licence MIT License. Consultez le fichier LICENSE pour plus de détails.
 
-Start coding Java in your browser with Java Online Compiler today! 🚀
+🚀 Commencez à coder en Java directement dans votre navigateur avec Java Online Compiler dès aujourd'hui !

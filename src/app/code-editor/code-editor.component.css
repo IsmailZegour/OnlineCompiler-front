@@ -166,15 +166,16 @@
     font-family: 'Roboto', sans-serif; /* Nouvelle police */
 }
 
-.spinner {
+/* Spinner intégré dans le bouton */
+.spinner-inline {
   display: inline-block;
   width: 16px;
   height: 16px;
-  margin-left: 10px;
   border: 2px solid rgba(255, 255, 255, 0.3); /* Couleur de fond */
   border-top-color: #ffffff; /* Couleur de la bordure supérieure */
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  vertical-align: middle;
 }
 
 @keyframes spin {
@@ -184,4 +185,10 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Désactiver le bouton lorsqu'il est en cours de chargement */
+button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.7;
 }

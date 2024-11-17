@@ -25,8 +25,10 @@
 
     <!-- Bouton d'envoi -->
     <div class="actions">
-      <button (click)="sendCode()">Run Code</button>
-      <div *ngIf="isLoading" class="spinner"></div>
+      <button (click)="sendCode()" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Execute</span>
+        <div *ngIf="isLoading" class="spinner-inline"></div>
+      </button>
     </div>
 
     <!-- Résultat de l'exécution -->

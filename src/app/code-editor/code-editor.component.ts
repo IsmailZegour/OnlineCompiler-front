@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
 })
 export class CodeEditorComponent implements AfterViewInit {
   status: 'success' | 'failed' | null = null; // Nouveau champ pour suivre l'état
+  isLoading: boolean = false;
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
 
@@ -62,20 +63,29 @@ public class Main {
 
   // Méthode pour envoyer le code au backend
   sendCode(): void {
+    this.isLoading = true; // Activer le statut de chargement
     const codeContent = this.editor.getValue(); // Récupérer le contenu de l'éditeur
     const payload = { code: codeContent, language: this.selectedLanguage }; // Inclure le langage
     
     this.http.post<{ output: string }>('http://localhost:8080/compile', payload).pipe(
       tap((response) => {
-        this.output = response.output; // Met à jour le résultat
-        this.status = response.output.includes("Compilation failed") || response.output.includes("error")
+        this.output = response.output.includes("Execution failed") ? "Error: Execution timed out." :response.output; // Met à jour le résultat
+        this.status = response.output.includes("failed") || response.output.includes("error")
           ? 'failed'
           : 'success'; // Vérifie si une erreur est présente
       }),
       catchError((error) => {
-        this.output = error.error.output || 'An error occurred.';
+        if (error.error.output.includes("Execution failed:")) {
+          this.output = "Error: Execution timed out.";
+      } else {
+          this.output = 'An error occurred : ' + error.error.output;
+      }
+
         this.status = 'failed'; // Indique un échec
         return of(null); // Retourne un Observable vide pour éviter les plantages
+      }),
+      tap(() => {
+        this.isLoading = false; // Désactiver le statut de chargement
       })
     ).subscribe(); // Exécution de l'Observable
   }

@@ -165,3 +165,23 @@
     font-size: 14px;
     font-family: 'Roboto', sans-serif; /* Nouvelle police */
 }
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.3); /* Couleur de fond */
+  border-top-color: #ffffff; /* Couleur de la bordure supérieure */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

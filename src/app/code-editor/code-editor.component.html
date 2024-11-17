@@ -1,15 +1,18 @@
 <div *ngIf="isBrowser">
   <div class="code-editor-wrapper">
-    <!-- En-tête personnalisée de l'éditeur -->
+    <!-- En-tête modernisé -->
     <div class="code-editor-header">
+      <!-- Boutons de style macOS -->
       <div class="buttons">
         <span class="button red"></span>
         <span class="button yellow"></span>
         <span class="button green"></span>
       </div>
+      
+      <!-- Titre centré -->
       <div class="title">Online Compiler</div>
 
-      <!-- Sélecteur de langage -->
+      <!-- Sélecteur de langage modernisé -->
       <div class="language-selector">
         <label for="language">Language : </label>
         <select id="language" [(ngModel)]="selectedLanguage" (change)="updateLanguage()">
@@ -23,7 +26,7 @@
       <div #editorContainer class="editor-container"></div>
     </div>
 
-    <!-- Bouton d'envoi -->
+    <!-- Bouton d'exécution -->
     <div class="actions">
       <button (click)="sendCode()" [disabled]="isLoading">
         <span *ngIf="!isLoading">Execute</span>
@@ -31,7 +34,7 @@
       </button>
     </div>
 
-    <!-- Résultat de l'exécution -->
+    <!-- Résultats -->
     <div class="output-container">
       <div class="output-header">
         <h3>Output</h3>
@@ -39,7 +42,6 @@
         <span *ngIf="status === 'failed'" class="status failed">Failed</span>
       </div>
       <pre class="output">{{ output }}</pre>
-      
     </div>
   </div>
 </div>

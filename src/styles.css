@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+/* Supprimer les marges et paddings par défaut de la page */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Assure un calcul des tailles cohérent */
+    background: linear-gradient(135deg, #001f3f, #000000); /* Fond bleu foncé à noir */
+    height: 100vh; /* S'assure que le fond couvre toute la hauteur de l'écran */
+    overflow: hidden; /* Évite tout défilement indésirable */
+}

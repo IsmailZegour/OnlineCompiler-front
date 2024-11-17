@@ -1,11 +1,16 @@
 /* Importation de la police Roboto */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-/* Fond général en nuances de gris */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Fond général en nuances de bleu foncé */
 :host {
     display: block;
     height: 100vh;
-    background: linear-gradient(135deg, #e0e0e0, #c0c0c0);
+    background: linear-gradient(135deg, #001f3f, #000000); /* Bleu foncé au noir */
     padding: 2rem;
     box-sizing: border-box;
 }
@@ -13,9 +18,9 @@
 /* Wrapper de l'éditeur */
 .code-editor-wrapper {
     background-color: #2b2b2b;
-    border-radius: 8px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     max-width: 900px;
     margin: 2rem auto;
     display: flex;
@@ -23,41 +28,88 @@
     gap: 1rem;
 }
 
-/* En-tête de l'éditeur */
+/* En-tête modernisé */
 .code-editor-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #44475a;
-    padding: 0.5rem 1rem;
-    color: #f8f8f2;
-    font-family: 'Roboto', sans-serif; /* Nouvelle police */
-    font-size: 16px;
-    font-weight: bold;
+    background: linear-gradient(135deg, #374151, #1f2937); /* Dégradé moderne */
+    padding: 1rem 1.5rem;
+    color: #f9fafb;
+    font-family: 'Roboto', sans-serif; /* Police moderne */
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 12px 12px 0 0; /* Coins arrondis en haut */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Boutons modernisés */
 .buttons {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.7rem;
 }
 
 .button {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     display: inline-block;
+    border: 2px solid rgba(255, 255, 255, 0.4); /* Bordure fine */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre douce */
+    cursor: pointer;
 }
 
 .button.red {
-    background-color: #ff5f56;
+    background-color: #f87171;
 }
 
 .button.yellow {
-    background-color: #ffbd2e;
+    background-color: #facc15;
 }
 
 .button.green {
-    background-color: #27c93f;
+    background-color: #4ade80;
+}
+
+/* Titre du bandeau */
+.code-editor-header .title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Ombre légère */
+    margin-left: 1rem; /* Décalage pour équilibrer */
+}
+
+/* Sélecteur de langage modernisé */
+.language-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: #1f2937;
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.language-selector label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #e5e7eb;
+}
+
+.language-selector select {
+    padding: 6px 12px;
+    border: 1px solid #6b7280;
+    border-radius: 6px;
+    background-color: #374151;
+    color: #f9fafb;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.language-selector select:hover {
+    border-color: #4caf50; /* Bordure verte au survol */
+    background-color: #4b5563; /* Variation subtile */
 }
 
 /* Conteneur de Monaco Editor */
@@ -85,10 +137,38 @@
     color: white;
     font-family: 'Roboto', sans-serif; /* Nouvelle police */
     cursor: pointer;
+    position: relative;
 }
 
 .actions button:hover {
     background-color: #45a049;
+}
+
+/* Spinner intégré dans le bouton */
+.spinner-inline {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Couleur de fond */
+    border-top-color: #ffffff; /* Couleur de la bordure supérieure */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Désactiver le bouton lorsqu'il est en cours de chargement */
+button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 /* Conteneur de la sortie */
@@ -140,55 +220,4 @@
     white-space: pre-wrap;
     word-wrap: break-word;
     font-family: 'Courier New', Courier, monospace; /* Garde une police type code */
-    
-}
-
-/* Style pour le sélecteur de langage */
-.language-selector {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.language-selector label {
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif; /* Nouvelle police */
-    color: #f8f8f2;
-}
-
-.language-selector select {
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid #444;
-    background-color: #44475a;
-    color: #f8f8f2;
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif; /* Nouvelle police */
-}
-
-/* Spinner intégré dans le bouton */
-.spinner-inline {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3); /* Couleur de fond */
-  border-top-color: #ffffff; /* Couleur de la bordure supérieure */
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  vertical-align: middle;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Désactiver le bouton lorsqu'il est en cours de chargement */
-button[disabled] {
-  cursor: not-allowed;
-  opacity: 0.7;
 }

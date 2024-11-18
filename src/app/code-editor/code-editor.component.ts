@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { catchError, of, tap } from 'rxjs';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { FormsModule } from '@angular/forms';
+import * as monaco from 'monaco-editor';
 
 @Component({
   selector: 'app-code-editor',
@@ -11,25 +12,24 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
   templateUrl: './code-editor.component.html',
   styleUrls: ['./code-editor.component.css'],
   imports: [
-    CommonModule, // Ajout du CommonModule pour *ngIf
-    FormsModule,  // Ajout du FormsModule pour ngModel
+    CommonModule,
+    FormsModule,
   ],
 })
 export class CodeEditorComponent implements AfterViewInit {
-  status: 'success' | 'failed' | null = null; // Nouveau champ pour suivre l'état
-  isLoading: boolean = false; // État de chargement
+  status: 'success' | 'failed' | null = null;
+  isLoading: boolean = false;
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
 
   defaultCodes: { [key: string]: string } = {
-    java: `// Write your Java code here
+    java: `// Write your Java code here\n// Shortcut : type "print" for "System.out.println"
 
-  public class Main {
-      public static void main(String[] args) {
-          System.out.println("Hello, World!");
-      }
-  }`,
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}`,
     python: `# Write your Python code here\n\nprint('Hello, World!')`,
-
     javascript: `// Write your JavaScript code here\n\nconsole.log('Hello, World!')`,
     c: `// Write your C code here
 #include <stdio.h>
@@ -37,18 +37,15 @@ export class CodeEditorComponent implements AfterViewInit {
 int main() {
   printf("Hello, World!");
   return 0;
-}`
+}`,
   };
 
-  userInput: string = ''; // Champ pour les inputs utilisateur
+  userInput: string = '';
   editor: any;
   isBrowser: boolean;
   output: string = '';
-
-  // Ajout du langage sélectionné
   selectedLanguage: string = 'java';
 
-  // Liste des langages disponibles
   languages: { name: string; value: string }[] = [
     { name: 'Java 17', value: 'java' },
     { name: 'Python', value: 'python' },
@@ -66,60 +63,109 @@ int main() {
   ngAfterViewInit(): void {
     if (this.isBrowser) {
       import('monaco-editor').then((monaco) => {
-        const defaultCode = this.defaultCodes[this.selectedLanguage] || ''; // Récupérer le code par défaut
         this.editor = monaco.editor.create(this.editorContainer.nativeElement, {
-          value: defaultCode, // Utiliser le code par défaut
+          value: this.defaultCodes[this.selectedLanguage],
           language: this.selectedLanguage,
           theme: 'vs-dark',
+          automaticLayout: true,
         });
+        
+        // Ajouter un fournisseur d'autocomplétion pour Java
+        this.addJavaAutoCompletion(monaco);
       });
     }
   }
 
-  // Méthode pour envoyer le code au backend
   sendCode(): void {
-    this.isLoading = true; // Activer le statut de chargement
-    const codeContent = this.editor.getValue(); // Récupérer le contenu de l'éditeur
+    this.isLoading = true;
+    const codeContent = this.editor.getValue();
     const payload = {
       code: codeContent,
       language: this.selectedLanguage,
-      inputs: this.userInput, // Inclure les inputs utilisateur
+      inputs: this.userInput,
     };
 
     this.http.post<{ output: string }>('http://localhost:8080/compile', payload).pipe(
       tap((response) => {
-        this.output = response.output.includes('Execution failed')
-          ? 'Error: Execution timed out.'
-          : response.output; // Met à jour le résultat
-        this.status =
-          response.output.includes('failed') || response.output.includes('error')
-            ? 'failed'
-            : 'success'; // Vérifie si une erreur est présente
+        this.output = response.output;
+        this.status = 'success';
       }),
       catchError((error) => {
-        if (error.error?.output?.includes('Execution failed:')) {
-          this.output = 'Error: Execution timed out.';
-        } else {
-          this.output = (error.error?.output || error.message);
-        }
-
-        this.status = 'failed'; // Indique un échec
-        return of(null); // Retourne un Observable vide pour éviter les plantages
+        this.output = error.error?.output || error.message;
+        this.status = 'failed';
+        return of(null);
       }),
       tap(() => {
-        this.isLoading = false; // Désactiver le statut de chargement
+        this.isLoading = false;
       })
-    ).subscribe(); // Exécution de l'Observable
+    ).subscribe();
   }
 
-  // Méthode pour mettre à jour le langage et reconfigurer Monaco Editor
-updateLanguage(): void {
-  if (this.editor) {
-    const defaultCode = this.defaultCodes[this.selectedLanguage] || '';
-    this.editor.setValue(defaultCode); // Met à jour le contenu avec le code par défaut
-    import('monaco-editor').then((monaco) => {
-      monaco.editor.setModelLanguage(this.editor.getModel(), this.selectedLanguage);
+  updateLanguage(): void {
+    if (this.editor) {
+      const defaultCode = this.defaultCodes[this.selectedLanguage] || '';
+      this.editor.setValue(defaultCode);
+      import('monaco-editor').then((monaco) => {
+        monaco.editor.setModelLanguage(this.editor.getModel(), this.selectedLanguage);
+      });
+    }
+  }
+
+  private addJavaAutoCompletion(monaco: typeof import('monaco-editor')): void {
+    monaco.languages.registerCompletionItemProvider('java', {
+      provideCompletionItems: (model, position) => {
+        const wordInfo = model.getWordAtPosition(position);
+        const range = wordInfo
+          ? new monaco.Range(
+              position.lineNumber,
+              wordInfo.startColumn,
+              position.lineNumber,
+              wordInfo.endColumn
+            )
+          : new monaco.Range(
+              position.lineNumber,
+              position.column,
+              position.lineNumber,
+              position.column
+            );
+  
+        const suggestions: monaco.languages.CompletionItem[] = [
+          {
+            label: 'System.out.println',
+            kind: monaco.languages.CompletionItemKind.Method,
+            insertText: 'System.out.println(${1:message});',
+            insertTextRules:
+              monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+            detail: 'Prints a message to the console',
+            documentation: 'Prints a message to the standard output.',
+            range: range, // Définit la plage correcte
+          },
+          {
+            label: 'psvm',
+            kind: monaco.languages.CompletionItemKind.Snippet,
+            insertText: `public static void main(String[] args) {\n\t$0\n}`,
+            insertTextRules:
+              monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+            detail: 'Main method',
+            documentation: 'Defines the entry point for a Java application.',
+            range: range, // Définit la plage correcte
+          },
+          {
+            label: 'for loop',
+            kind: monaco.languages.CompletionItemKind.Snippet,
+            insertText: "for (int ${1:i} = 0; ${1:i} < ${2:10}; ${1:i}++) {\n\t$0\n}",
+            insertTextRules:
+              monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+            detail: 'For loop',
+            documentation: 'A simple for loop.',
+            range: range, // Définit la plage correcte
+          },
+        ];
+  
+        return {
+          suggestions,
+        };
+      },
     });
   }
-}
 }

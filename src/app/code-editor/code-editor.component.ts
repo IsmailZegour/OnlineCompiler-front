@@ -100,7 +100,7 @@ int main() {
         if (error.error?.output?.includes('Execution failed:')) {
           this.output = 'Error: Execution timed out.';
         } else {
-          this.output = 'An error occurred: ' + (error.error?.output || error.message);
+          this.output = (error.error?.output || error.message);
         }
 
         this.status = 'failed'; // Indique un échec

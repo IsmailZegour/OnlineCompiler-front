@@ -45,18 +45,10 @@
     <div class="output-container">
       <div class="output-header">
         <h3>Output</h3>
-        <span
-          *ngIf="status === 'success'"
-          class="status success"
-          >Success</span
-        >
-        <span
-          *ngIf="status === 'failed'"
-          class="status failed"
-          >Failed</span
-        >
+        <span *ngIf="status === 'success'"class="status success">Success</span>
+        <span *ngIf="status === 'failed'"class="status failed">Failed</span>
       </div>
-      <pre class="output">{{ output }}</pre>
+      <div class="output">{{ output }}</div>
     </div>
   </div>
 </div>

@@ -110,7 +110,7 @@ body {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  width: 50%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -140,14 +140,35 @@ body {
   resize: none;
 }
 
-/* Zone de sortie (Outputs) */
 .output-container {
   background-color: #1e1e1e;
   color: #f8f8f2;
-  padding: 1rem;
+  padding: 1rem; /* Uniforme pour haut, bas, gauche, et droite */
   border-radius: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  border: none; /* Supprime toute bordure */
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Prend toute la largeur disponible */
+  box-sizing: border-box; /* Inclut le padding dans la largeur totale */
 }
 
+/* Zone de texte pour l'Output */
+.output {
+  white-space: pre-wrap; /* Assure le retour à la ligne */
+  word-wrap: break-word; /* Gère les longues lignes */
+  background-color: #1e1e1e;
+  color: #f8f8f2;
+  padding: 10px; /* Espacement interne uniforme */
+  border: none; /* Supprime la bordure */
+  font-family: 'Courier New', Courier, monospace; /* Style type code */
+  width: 100%; /* Prend toute la largeur du parent */
+  height: auto; /* Hauteur automatique pour s'adapter au contenu */
+  resize: none; /* Empêche le redimensionnement manuel */
+  overflow-y: hidden; /* Supprime la barre de défilement verticale */
+  box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+}
 /* En-tête de la sortie */
 .output-header {
   display: flex;

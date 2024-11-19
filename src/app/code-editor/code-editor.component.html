@@ -49,6 +49,10 @@
         <span *ngIf="status === 'failed'"class="status failed">Failed</span>
       </div>
       <div class="output">{{ output }}</div>
+      <div class="performance">
+        <p><strong>Execution Time:</strong> {{ executionTime }} ms</p>
+        <p><strong>Memory Usage:</strong> {{ memoryUsage }}</p>
+      </div>
     </div>
   </div>
 </div>

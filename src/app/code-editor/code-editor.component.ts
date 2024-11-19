@@ -44,6 +44,8 @@ int main() {
   editor: any;
   isBrowser: boolean;
   output: string = '';
+  executionTime: string = ''; // Temps d'exécution
+  memoryUsage: string = ''; // Mémoire utilisée
   selectedLanguage: string = 'java';
 
   languages: { name: string; value: string }[] = [
@@ -70,7 +72,6 @@ int main() {
           automaticLayout: true,
         });
         
-        // Ajouter un fournisseur d'autocomplétion pour Java
         this.addJavaAutoCompletion(monaco);
       });
     }
@@ -85,9 +86,11 @@ int main() {
       inputs: this.userInput,
     };
 
-    this.http.post<{ output: string }>('http://localhost:8080/compile', payload).pipe(
+    this.http.post<{ output: string; executionTime: string; memoryUsage: string }>('http://localhost:8080/compile', payload).pipe(
       tap((response) => {
         this.output = response.output;
+        this.executionTime = response.executionTime;
+        this.memoryUsage = response.memoryUsage;
         this.status = 'success';
       }),
       catchError((error) => {
@@ -128,7 +131,7 @@ int main() {
               position.lineNumber,
               position.column
             );
-  
+
         const suggestions: monaco.languages.CompletionItem[] = [
           {
             label: 'System.out.println',
@@ -138,7 +141,7 @@ int main() {
               monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
             detail: 'Prints a message to the console',
             documentation: 'Prints a message to the standard output.',
-            range: range, // Définit la plage correcte
+            range: range,
           },
           {
             label: 'psvm',
@@ -148,7 +151,7 @@ int main() {
               monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
             detail: 'Main method',
             documentation: 'Defines the entry point for a Java application.',
-            range: range, // Définit la plage correcte
+            range: range,
           },
           {
             label: 'for loop',
@@ -158,10 +161,10 @@ int main() {
               monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
             detail: 'For loop',
             documentation: 'A simple for loop.',
-            range: range, // Définit la plage correcte
+            range: range,
           },
         ];
-  
+
         return {
           suggestions,
         };

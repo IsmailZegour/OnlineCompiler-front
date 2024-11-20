@@ -23,6 +23,7 @@ body {
   align-items: flex-start;
   gap: 2rem;
   padding: 2rem;
+  height: calc(100vh - 4rem); /* Ajustement pour occuper toute la hauteur disponible */
 }
 
 /* Colonne gauche : Wrapper de l'éditeur */
@@ -31,9 +32,11 @@ body {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  width: 50%;
+  width: 65%; /* Plus d'espace pour l'éditeur */
   display: flex;
   flex-direction: column;
+  height: 95%; /* Occupe toute la hauteur disponible */
+  margin-bottom: 1rem;
 }
 
 /* En-tête modernisé de l'éditeur */
@@ -95,7 +98,7 @@ body {
 
 /* Conteneur de Monaco Editor */
 .code-editor-container {
-  height: 500px; /* Hauteur de l'éditeur */
+  height: calc(100% - 75px); /* Maximiser l'espace pour l'éditeur */
   background-color: #1e1e1e;
 }
 
@@ -128,7 +131,7 @@ body {
 }
 
 .inputs-container textarea {
-  width: 30%;
+  width: 95%;
   height: 100%;
   background-color: #2b2b2b;
   color: #f8f8f2;
@@ -140,67 +143,89 @@ body {
   resize: none;
 }
 
+/* Résultat de l'exécution */
 .output-container {
   background-color: #1e1e1e;
   color: #f8f8f2;
-  padding: 1rem; /* Uniforme pour haut, bas, gauche, et droite */
+  padding: 1rem;
   border-radius: 8px;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
-  border: none; /* Supprime toute bordure */
+  border: none;
   display: flex;
   flex-direction: column;
-  width: 100%; /* Prend toute la largeur disponible */
-  box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Zone de texte pour l'Output */
-.output {
-  white-space: pre-wrap; /* Assure le retour à la ligne */
-  word-wrap: break-word; /* Gère les longues lignes */
-  background-color: #1e1e1e;
-  color: #f8f8f2;
-  padding: 10px; /* Espacement interne uniforme */
-  border: none; /* Supprime la bordure */
-  font-family: 'Courier New', Courier, monospace; /* Style type code */
-  width: 100%; /* Prend toute la largeur du parent */
-  height: auto; /* Hauteur automatique pour s'adapter au contenu */
-  resize: none; /* Empêche le redimensionnement manuel */
-  overflow-y: hidden; /* Supprime la barre de défilement verticale */
-  box-sizing: border-box; /* Inclut le padding dans la largeur totale */
-}
-/* En-tête de la sortie */
+/* En-tête de l'output */
 .output-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
-  
+  /* margin-bottom: 0.5rem; */
 }
 
 .output-header h3 {
   font-size: 16px;
   color: #ffffff;
-  font-family: 'Roboto', sans-serif;
 }
 
 .status {
-  font-size: 14px;
-  font-weight: bold;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
+  font-size: 14px; /* Taille réduite */
+  color: #ffffff;
+  margin-left: 0.5rem;
+  padding: 0.3rem;
+  border-radius: 50%;
 }
 
 .status.success {
   background-color: #4caf50;
-  color: #ffffff;
 }
 
 .status.failed {
   background-color: #f44336;
-  color: #ffffff;
 }
 
-/* Spinner intégré dans le bouton */
+.output-header .status.hidden {
+  visibility: hidden; /* Masquer lorsque le bouton est en chargement */
+}
+
+/* Trait diviseur sous l'en-tête */
+.divider {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #4caf50, transparent);
+  margin: 10px 0;
+}
+
+/* Zone de texte pour l'Output */
+.output {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background-color: #000000;
+  padding: 10px;
+  border-radius: 6px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  margin-bottom: 1rem;
+  min-height: 100px; /* Taille minimale */
+}
+
+/* Informations d'exécution */
+.execution-info {
+  font-size: 14px;
+  color: #ffffff;
+  margin-top: 1rem;
+}
+
+.execution-time {
+  font-size: 15px;
+  font-weight: bold;
+  /* color: #ffeb3b; */
+}
+
+/* Spinner */
 .spinner-inline {
   display: inline-block;
   width: 16px;

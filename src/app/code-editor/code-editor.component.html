@@ -15,13 +15,13 @@
           >{{ lang.name }}</option>
         </select>
       </div>
-          <!-- Bouton d'envoi -->
-    <div class="actions">
-      <button (click)="sendCode()" [disabled]="isLoading">
-        <span *ngIf="!isLoading">Execute</span>
-        <div *ngIf="isLoading" class="spinner-inline"></div>
-      </button>
-    </div>
+      <!-- Bouton d'envoi -->
+      <div class="actions">
+        <button (click)="sendCode()" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Execute</span>
+          <div *ngIf="isLoading" class="spinner-inline"></div>
+        </button>
+      </div>
     </div>
 
     <div class="code-editor-container">
@@ -31,27 +31,33 @@
 
   <!-- Colonne droite : Inputs et Outputs -->
   <div class="io-container">
-    <!-- Entrées utilisateur -->
     <div class="inputs-container">
       <h3>Inputs</h3>
       <textarea
         [(ngModel)]="userInput"
         rows="6"
-        placeholder="Enter inputs here "
+        placeholder="Enter inputs here"
       ></textarea>
     </div>
-
     <!-- Résultat de l'exécution -->
     <div class="output-container">
       <div class="output-header">
         <h3>Output</h3>
-        <span *ngIf="status === 'success'"class="status success">Success</span>
-        <span *ngIf="status === 'failed'"class="status failed">Failed</span>
+        <span
+          *ngIf="status === 'success'"
+          class="status success"
+        >✔</span>
+        <span
+          *ngIf="status === 'failed'"
+          class="status failed"
+        >✖</span>
       </div>
+      <hr class="divider" />
       <div class="output">{{ output }}</div>
-      <div class="performance">
-        <p><strong>Execution Time:</strong> {{ executionTime }} ms</p>
-        <p><strong>Memory Usage:</strong> {{ memoryUsage }} Ko</p>
+      <div *ngIf="status === 'success'" class="execution-info">
+        Compiled and executed in
+        <strong class="execution-time">{{ executionTime }} ms</strong>, using
+        <strong class="execution-time">{{ memoryUsage }} Ko</strong> in memory space.
       </div>
     </div>
   </div>

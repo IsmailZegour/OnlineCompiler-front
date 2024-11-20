@@ -71,7 +71,7 @@ int main() {
           theme: 'vs-dark',
           automaticLayout: true,
         });
-        
+
         this.addJavaAutoCompletion(monaco);
       });
     }

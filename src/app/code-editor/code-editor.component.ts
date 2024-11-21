@@ -5,6 +5,8 @@ import { PLATFORM_ID } from '@angular/core';
 import { catchError, of, tap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import * as monaco from 'monaco-editor';
+import { environment } from '../../environments/environment'; // Import des variables d'environnement
+
 
 @Component({
   selector: 'app-code-editor',
@@ -17,6 +19,8 @@ import * as monaco from 'monaco-editor';
   ],
 })
 export class CodeEditorComponent implements AfterViewInit {
+  apiUrl = environment.apiUrl; // Utiliser l'URL de l'environnement
+
   status: 'success' | 'failed' | null = null;
   isLoading: boolean = false;
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
@@ -45,7 +49,8 @@ int main() {
   isBrowser: boolean;
   output: string = '';
   executionTime: string = ''; // Temps d'exécution
-  memoryUsage: string = ''; // Mémoire utilisée
+  memoryUsage: string = ''; // Mémoire utilisée  apiUrl = environment.apiUrl; // Utiliser l'URL de l'environnement
+
   selectedLanguage: string = 'java';
 
   languages: { name: string; value: string }[] = [
@@ -86,7 +91,7 @@ int main() {
       inputs: this.userInput,
     };
 
-    this.http.post<{ output: string; executionTime: string; memoryUsage: string }>('http://localhost:8080/compile', payload).pipe(
+    this.http.post<{ output: string; executionTime: string; memoryUsage: string }>(`${this.apiUrl}/compile`, payload).pipe(
       tap((response) => {
         this.output = response.output;
         this.executionTime = response.executionTime;

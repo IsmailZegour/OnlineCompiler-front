@@ -161,7 +161,7 @@ body {
 /* En-tête de l'output */
 .output-header {
   display: flex;
-  justify-content: space-between;
+  justify-content:flex-start;
   align-items: center;
   /* margin-bottom: 0.5rem; */
 }
@@ -172,11 +172,16 @@ body {
 }
 
 .status {
-  font-size: 14px; /* Taille réduite */
+  width: 16px; /* Assurez-vous que la largeur et la hauteur sont identiques */
+  height: 16px;
   color: #ffffff;
   margin-left: 0.5rem;
   padding: 0.3rem;
-  border-radius: 50%;
+  border-radius: 20%; /* 20% pour carré, 50% pour rond */
+  display: flex; /* Aligne le contenu à l'intérieur */
+  align-items: center; /* Centrage vertical */
+  justify-content: center; /* Centrage horizontal */
+  font-size: 14px; /* Taille de l'icône ou du texte */
 }
 
 .status.success {

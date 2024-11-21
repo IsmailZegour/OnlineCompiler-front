@@ -206,7 +206,7 @@ body {
   background-color: #000000;
   padding: 10px;
   border-radius: 6px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   margin-bottom: 1rem;
   min-height: 100px; /* Taille minimale */
@@ -222,7 +222,7 @@ body {
 .execution-time {
   font-size: 15px;
   font-weight: bold;
-  /* color: #ffeb3b; */
+  color: #4caf50;
 }
 
 /* Spinner */

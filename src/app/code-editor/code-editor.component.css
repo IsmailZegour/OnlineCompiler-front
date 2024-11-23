@@ -217,6 +217,10 @@ body {
   min-height: 100px; /* Taille minimale */
 }
 
+.output-header .spinner-inline {
+  margin-left: 10px; /* Ajuste l'espacement */
+}
+
 /* Informations d'exécution */
 .execution-info {
   font-size: 14px;

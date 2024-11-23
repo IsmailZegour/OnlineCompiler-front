@@ -84,6 +84,8 @@ int main() {
 
   sendCode(): void {
     this.isLoading = true;
+    this.status = null; // Réinitialiser le status
+    this.output = ''; // Réinitialiser la sortie
     const codeContent = this.editor.getValue();
     const payload = {
       code: codeContent,

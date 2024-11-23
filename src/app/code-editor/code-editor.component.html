@@ -44,19 +44,20 @@
       <div class="output-header">
         <h3>Output</h3>
         <span
-          *ngIf="status === 'success'"
+          *ngIf="!isLoading && status === 'success'"
           class="status success"
         >✔</span>
         <span
-          *ngIf="status === 'failed'"
+          *ngIf="!isLoading && status === 'failed'"
           class="status failed"
         >✖</span>
+        <div *ngIf="isLoading" class="spinner-inline"></div>
       </div>
       <hr class="divider" />
       <div class="output">{{ output }}</div>
       <div *ngIf="status === 'success'" class="execution-info">
         Compiled and executed in
-        <strong class="execution-time">{{ executionTime }} ms</strong>, using
+        <strong class="execution-time">{{ executionTime }} sec(s)</strong>, using
         <strong class="execution-time">{{ memoryUsage }} Ko</strong> in memory space.
       </div>
     </div>

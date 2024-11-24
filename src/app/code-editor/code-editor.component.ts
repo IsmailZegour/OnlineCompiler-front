@@ -56,8 +56,8 @@ int main() {
   languages: { name: string; value: string }[] = [
     { name: 'Java 17', value: 'java' },
     { name: 'Python', value: 'python' },
-    { name: 'C', value: 'c' },
-    { name: 'Javascript', value: 'javascript' },
+    // { name: 'C', value: 'c' },
+    // { name: 'Javascript', value: 'javascript' },
   ];
 
   constructor(
@@ -101,7 +101,11 @@ int main() {
         this.status = 'success';
       }),
       catchError((error) => {
-        this.output = error.error?.output || error.message;
+        if (error.status === 0) {
+          this.output = "Le service de compilation est actuellement indisponible. Veuillez réessayer plus tard.";
+        } else {
+          this.output = error.error?.output || "Une erreur s'est produite lors de la compilation. Veuillez vérifier votre code et réessayer.";
+        }
         this.status = 'failed';
         return of(null);
       }),

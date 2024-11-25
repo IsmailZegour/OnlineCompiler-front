@@ -1,8 +1,8 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, Inject } from '@angular/core';
+import { Component, AfterViewInit, OnInit ,ElementRef, ViewChild, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
-import { catchError, of, tap } from 'rxjs';
+import { catchError, of, tap,finalize } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import * as monaco from 'monaco-editor';
 import { environment } from '../../environments/environment'; // Import des variables d'environnement
@@ -50,6 +50,7 @@ int main() {
   output: string = '';
   executionTime: string = ''; // Temps d'exécution
   memoryUsage: string = ''; // Mémoire utilisée  apiUrl = environment.apiUrl; // Utiliser l'URL de l'environnement
+  apiAvailable: boolean = false;
 
   selectedLanguage: string = 'java';
 
@@ -65,6 +66,30 @@ int main() {
     private http: HttpClient
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  ngOnInit() {
+    this.checkApiAvailability();
+  }
+
+  checkApiAvailability() {
+    this.http.get(`${this.apiUrl}/test`, { responseType: 'text' }).pipe(
+      tap((response) => {
+        if (response === 'Hello, World!') {
+          this.apiAvailable = true;
+          // console.log('API disponible avec la réponse correcte');
+        }
+
+      }),
+      catchError((error) => {
+        // console.error('API indisponible:', error);
+        this.apiAvailable = false;
+        return of(null);
+      }),
+      // finalize(() => {
+      //   console.log('Vérification de l\'API terminée');
+      // })
+    ).subscribe();
   }
 
   ngAfterViewInit(): void {

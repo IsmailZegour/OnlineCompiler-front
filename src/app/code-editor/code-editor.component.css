@@ -80,6 +80,11 @@ body {
   background-color: #4b5563;
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+}
+
 /* Bouton d'exécution aligné à droite */
 .actions button {
   padding: 10px 20px;
@@ -265,4 +270,20 @@ body {
 button[disabled] {
   cursor: not-allowed;
   opacity: 0.7;
+}
+
+.api-status-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: auto;
+}
+
+.api-status-indicator.available {
+  background-color: #4caf50; /* Vert */
+}
+
+.api-status-indicator.unavailable {
+  background-color: #f44336; /* Rouge */
 }

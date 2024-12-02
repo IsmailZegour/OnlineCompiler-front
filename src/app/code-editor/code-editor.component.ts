@@ -56,7 +56,7 @@ int main() {
 
   languages: { name: string; value: string }[] = [
     { name: 'Java 21', value: 'java' },
-    { name: 'Python', value: 'python' },
+    // { name: 'Python', value: 'python' },
     // { name: 'C', value: 'c' },
     // { name: 'Javascript', value: 'javascript' },
   ];

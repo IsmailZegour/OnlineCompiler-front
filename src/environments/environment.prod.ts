@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-  apiUrl: 'http://15.236.60.26:8080'
+  apiUrl: 'https://dfr8uk9b41.execute-api.eu-west-3.amazonaws.com'
     
   };
   

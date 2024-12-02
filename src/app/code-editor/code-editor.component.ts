@@ -55,7 +55,7 @@ int main() {
   selectedLanguage: string = 'java';
 
   languages: { name: string; value: string }[] = [
-    { name: 'Java 17', value: 'java' },
+    { name: 'Java 21', value: 'java' },
     { name: 'Python', value: 'python' },
     // { name: 'C', value: 'c' },
     // { name: 'Javascript', value: 'javascript' },
@@ -115,10 +115,10 @@ int main() {
     const payload = {
       code: codeContent,
       language: this.selectedLanguage,
-      inputs: this.userInput,
+      // inputs: this.userInput,
     };
 
-    this.http.post<{ output: string; executionTime: string; memoryUsage: string }>(`${this.apiUrl}/compile`, payload).pipe(
+    this.http.post<{ output: string; executionTime: string; memoryUsage: string }>(`${this.apiUrl}/EtapeTest/compile`, payload).pipe(
       tap((response) => {
         this.output = response.output;
         this.executionTime = response.executionTime;

@@ -83,7 +83,7 @@ int main() {
       }),
       catchError((error) => {
         // console.error('API indisponible:', error);
-        this.apiAvailable = false;
+        this.apiAvailable = true;
         return of(null);
       }),
       // finalize(() => {

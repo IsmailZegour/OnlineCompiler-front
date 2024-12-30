@@ -50,7 +50,7 @@ int main() {
   output: string = '';
   executionTime: string = ''; // Temps d'exécution
   memoryUsage: string = ''; // Mémoire utilisée  apiUrl = environment.apiUrl; // Utiliser l'URL de l'environnement
-  apiAvailable: boolean = false;
+  apiAvailable: boolean = true;
 
   selectedLanguage: string = 'java';
 
@@ -83,7 +83,7 @@ int main() {
       }),
       catchError((error) => {
         // console.error('API indisponible:', error);
-        this.apiAvailable = true;
+        this.apiAvailable = true; // TODO changer cette valeur quand on aura une route attitrée pour le test de disponibilité
         return of(null);
       }),
       // finalize(() => {

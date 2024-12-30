@@ -28,7 +28,8 @@
                 "glob": "**/*",
                 "input": "node_modules/monaco-editor/min/vs",
                 "output": "/assets/monaco"
-              }
+              },
+                "src/assets"
             ],
             "styles": [
               "src/styles.css",
@@ -99,7 +100,8 @@
                 "glob": "**/*",
                 "input": "node_modules/monaco-editor/min/vs",
                 "output": "/assets/monaco"
-              }
+              },
+                "src/assets"
             ],
             "styles": [
               "src/styles.css",
